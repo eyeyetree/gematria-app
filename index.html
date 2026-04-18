@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gematria Oracle</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+:root{--gold:#c9a84c;--gold-light:#e8c96a;--gold-dim:#7a6330;--ink:#0d0a06;--parchment:#1a1409;--parchment-mid:#241c0d;--parchment-light:#2e2310;--text:#d4c09a;--text-dim:#8a7a5a;--red:#8b3a3a;--red-light:#c45c5c}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--text);font-family:'EB Garamond',serif;min-height:100vh;overflow-x:hidden}
+.container{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:40px 24px 80px}
+header{text-align:center;padding:32px 0 40px;border-bottom:1px solid var(--gold-dim);margin-bottom:48px}
+.title-he{font-size:clamp(2.2rem,6vw,3.5rem);color:var(--gold);font-family:'Cinzel Decorative',serif;text-shadow:0 0 40px rgba(201,168,76,0.4);margin-bottom:10px}
+.title-sub{font-size:1rem;color:var(--text-dim);letter-spacing:0.3em;text-transform:uppercase;font-style:italic}
+.input-section{background:var(--parchment-mid);border:1px solid var(--gold-dim);padding:32px;margin-bottom:32px}
+.label{font-size:0.75rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:10px;display:block}
+.hebrew-input{width:100%;background:var(--ink);border:1px solid var(--gold-dim);color:var(--gold-light);font-family:'EB Garamond',serif;font-size:2.4rem;padding:16px 20px;text-align:right;direction:rtl;outline:none}
+.kb-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;justify-content:flex-end;margin-top:8px}
+.kb-key{background:var(--parchment);border:1px solid var(--gold-dim);color:var(--gold-light);font-family:'EB Garamond',serif;font-size:1.1rem;width:38px;height:38px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.kb-val{font-size:0.5rem;color:var(--text-dim);position:absolute;bottom:2px;right:3px}
+.kb-del{background:var(--red);border-color:var(--red-light);color:#ffc;font-size:0.8rem;width:auto;padding:0 10px}
+.value-display{display:flex;gap:16px;margin-top:24px;flex-wrap:wrap}
+.val-box{flex:1;min-width:140px;background:var(--ink);border:1px solid var(--gold-dim);padding:16px 20px;text-align:center}
+.val-label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px}
+.val-number{font-family:'Cinzel Decorative',serif;font-size:2.2rem;color:var(--gold);min-height:2.5rem;display:flex;align-items:center;justify-content:center}
+.val-breakdown{font-size:0.75rem;color:var(--text-dim);margin-top:4px;font-style:italic}
+.results-section{margin-top:32px}
+.section-title{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);padding-bottom:10px;border-bottom:1px solid var(--parchment-light);margin-bottom:16px}
+.match-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.match-card{background:var(--parchment-mid);border:1px solid var(--parchment-light);border-left:3px solid var(--gold-dim);padding:14px 16px}
+.match-he{font-size:1.6rem;color:var(--gold-light);direction:rtl;text-align:right;line-height:1.2;margin-bottom:4px}
+.match-trans{font-size:0.85rem;color:var(--text);font-style:italic;margin-bottom:2px}
+.match-ref{font-size:0.7rem;color:var(--text-dim)}
+.match-val{font-size:0.7rem;color:var(--gold-dim);float:right;font-family:'Cinzel Decorative',serif}
+.no-match{text-align:center;color:var(--text-dim);font-style:italic;padding:32px}
+.empty-state{text-align:center;color:var(--text-dim);padding:48px 0;font-style:italic}
+.adder{background:var(--parchment-mid);border:1px solid var(--parchment-light);padding:20px 24px;margin-top:32px}
+.adder-title{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:14px}
+.adder-row{display:flex;gap:8px;flex-wrap:wrap}
+.adder-input{background:var(--ink);border:1px solid var(--gold-dim);color:var(--gold-light);font-family:'EB Garamond',serif;font-size:1.3rem;padding:8px 12px;direction:rtl;outline:none;flex:1;min-width:100px}
+.adder-label-input{background:var(--ink);border:1px solid var(--gold-dim);color:var(--text);font-family:'EB Garamond',serif;font-size:0.9rem;padding:8px 12px;outline:none;flex:2;min-width:120px}
+.adder-btn{background:var(--gold-dim);border:none;color:var(--ink);font-family:'Cinzel Decorative',serif;font-size:0.75rem;padding:8px 16px;cursor:pointer}
+footer{text-align:center;margin-top:64px;font-size:0.75rem;color:var(--text-dim);letter-spacing:0.15em;opacity:0.5;border-top:1px solid var(--parchment-light);padding-top:24px}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="title-he">גמטריה</div>
+<div class="title-sub">Gematria Oracle</div>
+</header>
+<div class="input-section">
+<span class="label">ヘブライ文字を入力</span>
+<input type="text" class="hebrew-input" id="mainInput" placeholder="אבג" dir="rtl"/>
+<div id="keyboard"></div>
+<div class="value-display">
+<div class="val-box"><div class="val-label">標準値 Hechrachi</div><div class="val-number" id="stdVal">—</div><div class="val-breakdown" id="stdBreak"></div></div>
+<div class="val-box"><div class="val-label">小数値 Katan</div><div class="val-number" id="katanVal">—</div></div>
+</div>
+</div>
+<div class="results-section" id="resultsSection" style="display:none">
+<div class="section-title" id="resultsTitle">同値ワード</div>
+<div class="match-list" id="matchList"></div>
+</div>
+<div class="empty-state" id="emptyState">文字を入力すると同じゲマトリア値を持つ語が現れます</div>
+<div class="adder">
+<div class="adder-title">✦ 自分のワードを追加</div>
+<div class="adder-row">
+<input class="adder-input" id="addHe" placeholder="הוסף" dir="rtl"/>
+<input class="adder-label-input" id="addLabel" placeholder="意味・メモ（任意）"/>
+<button class="adder-btn" onclick="addWord()">追加</button>
+</div>
+</div>
+<footer>ヘブライ文字22文字 · 標準 & 小数値対応 · 聖書語彙内蔵</footer>
+</div>
+<script>
+const STD={'א':1,'ב':2,'ג':3,'ד':4,'ה':5,'ו':6,'ז':7,'ח':8,'ט':9,'י':10,'כ':20,'ך':20,'ל':30,'מ':40,'ם':40,'נ':50,'ן':50,'ס':60,'ע':70,'פ':80,'ף':80,'צ':90,'ץ':90,'ק':100,'ר':200,'ש':300,'ת':400};
+const LETTERS=[{l:'א',v:1},{l:'ב',v:2},{l:'ג',v:3},{l:'ד',v:4},{l:'ה',v:5},{l:'ו',v:6},{l:'ז',v:7},{l:'ח',v:8},{l:'ט',v:9},{l:'י',v:10},{l:'כ',v:20},{l:'ל',v:30},{l:'מ',v:40},{l:'נ',v:50},{l:'ס',v:60},{l:'ע',v:70},{l:'פ',v:80},{l:'צ',v:90},{l:'ק',v:100},{l:'ר',v:200},{l:'ש',v:300},{l:'ת',v:400}];
+const FINALS=[{l:'ך',v:20},{l:'ם',v:40},{l:'ן',v:50},{l:'ף',v:80},{l:'ץ',v:90}];
+function stdVal(w){return[...w].reduce((s,c)=>s+(STD[c]||0),0)}
+function katanVal(w){let s=0;for(const c of w){let v=STD[c]||0;while(v>=10)v=[...String(v)].reduce((a,d)=>a+Number(d),0);s+=v}return s}
+let wordDB=[
+{he:'אלהים',tr:'Elohim（神）',ref:'創世記1:1'},{he:'בראשית',tr:'初めに',ref:'創世記1:1'},{he:'ארץ',tr:'地',ref:'創世記1:1'},{he:'שמים',tr:'天',ref:'創世記1:1'},{he:'אור',tr:'光',ref:'創世記1:3'},{he:'חשך',tr:'闇',ref:'創世記1:2'},{he:'מים',tr:'水',ref:'創世記1:2'},{he:'רוח',tr:'霊・風',ref:'創世記1:2'},{he:'יהוה',tr:'YHWH（神の名）',ref:'出エジプト3:14'},{he:'אדני',tr:'主（アドナイ）',ref:'詩篇8:1'},{he:'שדי',tr:'全能者（シャダイ）',ref:'創世記17:1'},{he:'אל',tr:'神（エル）',ref:'創世記14:18'},{he:'ישוע',tr:'イェシュア（救い）',ref:'マタイ1:21'},{he:'ישועה',tr:'救い',ref:'詩篇118:14'},{he:'משיח',tr:'メシア',ref:'ダニエル9:25'},{he:'גואל',tr:'贖い主',ref:'ルツ4:14'},{he:'תורה',tr:'トーラー（律法）',ref:'詩篇119:1'},{he:'ברית',tr:'契約',ref:'創世記17:2'},{he:'שלום',tr:'シャローム（平和）',ref:'民数記6:26'},{he:'אמת',tr:'真理・誠実',ref:'詩篇25:5'},{he:'חסד',tr:'慈しみ（ヘセド）',ref:'詩篇136'},{he:'אהבה',tr:'愛',ref:'申命記6:5'},{he:'אמונה',tr:'信仰・誠実',ref:'ハバクク2:4'},{he:'אדם',tr:'アダム・人間',ref:'創世記1:27'},{he:'נפש',tr:'魂（ネフェシュ）',ref:'創世記2:7'},{he:'נשמה',tr:'息・霊（ネシャマー）',ref:'創世記2:7'},{he:'לב',tr:'心',ref:'申命記6:5'},{he:'אחד',tr:'一・唯一',ref:'申命記6:4'},{he:'שבע',tr:'七・完全',ref:'創世記2:2'},{he:'מלאך',tr:'御使い',ref:'創世記16:7'},{he:'שטן',tr:'サタン（敵対者）',ref:'ヨブ記1:6'},{he:'נחש',tr:'蛇',ref:'創世記3:1'},{he:'עולם',tr:'世界・永遠',ref:'コヘレト3:11'},{he:'עדן',tr:'エデン',ref:'創世記2:8'},{he:'ירושלם',tr:'エルサレム',ref:'詩篇122:1'},{he:'ציון',tr:'シオン',ref:'詩篇48:2'},{he:'כבוד',tr:'栄光',ref:'詩篇19:2'},{he:'קדוש',tr:'聖なる',ref:'イザヤ6:3'},{he:'חכמה',tr:'知恵（ホクマー）',ref:'箴言1:1'},{he:'בינה',tr:'理解（ビナー）',ref:'箴言1:2'},{he:'דעת',tr:'知識（ダアト）',ref:'箴言1:4'},{he:'חיים',tr:'命・生',ref:'申命記30:19'},{he:'מות',tr:'死',ref:'創世記2:17'},{he:'נביא',tr:'預言者',ref:'申命記18:15'},{he:'מלך',tr:'王',ref:'詩篇10:16'},{he:'כהן',tr:'祭司',ref:'出エジプト28:1'},{he:'דוד',tr:'ダビデ',ref:'サムエル記'},{he:'משה',tr:'モーセ',ref:'出エジプト2'},{he:'אברהם',tr:'アブラハム',ref:'創世記12:1'},{he:'יצחק',tr:'イサク',ref:'創世記21:3'},{he:'יעקב',tr:'ヤコブ',ref:'創世記25:26'},{he:'שמע',tr:'聞け（シェマー）',ref:'申命記6:4'}
+];
+wordDB.forEach(w=>{w.std=stdVal(w.he);w.katan=katanVal(w.he)});
+function buildKeyboard(){
+const kb=document.getElementById('keyboard');
+[[...LETTERS.slice(0,11)],[...LETTERS.slice(11,22)],[...FINALS,{l:'⌫',del:true}]].forEach(row=>{
+const div=document.createElement('div');div.className='kb-row';
+row.forEach(k=>{const btn=document.createElement('button');
+if(k.del){btn.className='kb-key kb-del';btn.textContent='⌫ 削除';btn.onclick=()=>{const i=document.getElementById('mainInput');i.value=i.value.slice(0,-1);update()}}
+else{btn.className='kb-key';btn.innerHTML=`${k.l}<span class="kb-val">${k.v}</span>`;btn.onclick=()=>{document.getElementById('mainInput').value+=k.l;update()}}
+div.appendChild(btn)});kb.appendChild(div)})
+}
+function update(){
+const word=document.getElementById('mainInput').value.replace(/[^\u05D0-\u05EA]/g,'');
+document.getElementById('mainInput').value=word;
+const sv=word?stdVal(word):null,kv=word?katanVal(word):null;
+document.getElementById('stdVal').textContent=sv!==null?sv:'—';
+document.getElementById('katanVal').textContent=kv!==null?kv:'—';
+document.getElementById('stdBreak').textContent=word?[...word].filter(c=>STD[c]).map(c=>`${c}=${STD[c]}`).join('+'):'';
+const rs=document.getElementById('resultsSection'),es=document.getElementById('emptyState');
+if(!word){rs.style.display='none';es.style.display='block';return}
+es.style.display='none';rs.style.display='block';
+const matches=wordDB.filter(w=>w.he!==word&&(w.std===sv||w.katan===kv));
+matches.sort((a,b)=>(b.std===sv)-(a.std===sv));
+document.getElementById('resultsTitle').textContent=`同値ワード — 標準:${sv} / 小数:${kv} — ${matches.length}件`;
+const list=document.getElementById('matchList');list.innerHTML='';
+if(!matches.length){list.innerHTML='<div class="no-match">一致するワードが見つかりません</div>';return}
+matches.forEach(w=>{const card=document.createElement('div');card.className='match-card';
+const badges=[];if(w.std===sv)badges.push(`標準:${w.std}`);if(w.katan===kv)badges.push(`小数:${w.katan}`);
+card.innerHTML=`<span class="match-val">${badges.join('|')}</span><div class="match-he">${w.he}</div><div class="match-trans">${w.tr}</div>${w.ref?`<div class="match-ref">${w.ref}</div>`:''}`;
+list.appendChild(card)})
+}
+function addWord(){
+const he=document.getElementById('addHe').value.replace(/[^\u05D0-\u05EA]/g,'');
+const label=document.getElementById('addLabel').value.trim()||'（メモなし）';
+if(!he)return;
+wordDB.push({he,tr:label,ref:'（追加）',std:stdVal(he),katan:katanVal(he)});
+document.getElementById('addHe').value='';document.getElementById('addLabel').value='';update()
+}
+buildKeyboard();
+document.getElementById('mainInput').addEventListener('input',update);
+</script>
+</body>
+</html>
 
