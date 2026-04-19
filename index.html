@@ -3,126 +3,1100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gematria Oracle</title>
+<title>מקרא — Mikra</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
-:root{--gold:#c9a84c;--gold-light:#e8c96a;--gold-dim:#7a6330;--ink:#0d0a06;--parchment:#1a1409;--parchment-mid:#241c0d;--parchment-light:#2e2310;--text:#d4c09a;--text-dim:#8a7a5a;--red:#8b3a3a;--red-light:#c45c5c}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--ink);color:var(--text);font-family:'EB Garamond',serif;min-height:100vh;overflow-x:hidden}
-.container{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:40px 24px 80px}
-header{text-align:center;padding:32px 0 40px;border-bottom:1px solid var(--gold-dim);margin-bottom:48px}
-.title-he{font-size:clamp(2.2rem,6vw,3.5rem);color:var(--gold);font-family:'Cinzel Decorative',serif;text-shadow:0 0 40px rgba(201,168,76,0.4);margin-bottom:10px}
-.title-sub{font-size:1rem;color:var(--text-dim);letter-spacing:0.3em;text-transform:uppercase;font-style:italic}
-.input-section{background:var(--parchment-mid);border:1px solid var(--gold-dim);padding:32px;margin-bottom:32px}
-.label{font-size:0.75rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:10px;display:block}
-.hebrew-input{width:100%;background:var(--ink);border:1px solid var(--gold-dim);color:var(--gold-light);font-family:'EB Garamond',serif;font-size:2.4rem;padding:16px 20px;text-align:right;direction:rtl;outline:none}
-.kb-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:5px;justify-content:flex-end;margin-top:8px}
-.kb-key{background:var(--parchment);border:1px solid var(--gold-dim);color:var(--gold-light);font-family:'EB Garamond',serif;font-size:1.1rem;width:38px;height:38px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
-.kb-val{font-size:0.5rem;color:var(--text-dim);position:absolute;bottom:2px;right:3px}
-.kb-del{background:var(--red);border-color:var(--red-light);color:#ffc;font-size:0.8rem;width:auto;padding:0 10px}
-.value-display{display:flex;gap:16px;margin-top:24px;flex-wrap:wrap}
-.val-box{flex:1;min-width:140px;background:var(--ink);border:1px solid var(--gold-dim);padding:16px 20px;text-align:center}
-.val-label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px}
-.val-number{font-family:'Cinzel Decorative',serif;font-size:2.2rem;color:var(--gold);min-height:2.5rem;display:flex;align-items:center;justify-content:center}
-.val-breakdown{font-size:0.75rem;color:var(--text-dim);margin-top:4px;font-style:italic}
-.results-section{margin-top:32px}
-.section-title{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-dim);padding-bottom:10px;border-bottom:1px solid var(--parchment-light);margin-bottom:16px}
-.match-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-.match-card{background:var(--parchment-mid);border:1px solid var(--parchment-light);border-left:3px solid var(--gold-dim);padding:14px 16px}
-.match-he{font-size:1.6rem;color:var(--gold-light);direction:rtl;text-align:right;line-height:1.2;margin-bottom:4px}
-.match-trans{font-size:0.85rem;color:var(--text);font-style:italic;margin-bottom:2px}
-.match-ref{font-size:0.7rem;color:var(--text-dim)}
-.match-val{font-size:0.7rem;color:var(--gold-dim);float:right;font-family:'Cinzel Decorative',serif}
-.no-match{text-align:center;color:var(--text-dim);font-style:italic;padding:32px}
-.empty-state{text-align:center;color:var(--text-dim);padding:48px 0;font-style:italic}
-.adder{background:var(--parchment-mid);border:1px solid var(--parchment-light);padding:20px 24px;margin-top:32px}
-.adder-title{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:14px}
-.adder-row{display:flex;gap:8px;flex-wrap:wrap}
-.adder-input{background:var(--ink);border:1px solid var(--gold-dim);color:var(--gold-light);font-family:'EB Garamond',serif;font-size:1.3rem;padding:8px 12px;direction:rtl;outline:none;flex:1;min-width:100px}
-.adder-label-input{background:var(--ink);border:1px solid var(--gold-dim);color:var(--text);font-family:'EB Garamond',serif;font-size:0.9rem;padding:8px 12px;outline:none;flex:2;min-width:120px}
-.adder-btn{background:var(--gold-dim);border:none;color:var(--ink);font-family:'Cinzel Decorative',serif;font-size:0.75rem;padding:8px 16px;cursor:pointer}
-footer{text-align:center;margin-top:64px;font-size:0.75rem;color:var(--text-dim);letter-spacing:0.15em;opacity:0.5;border-top:1px solid var(--parchment-light);padding-top:24px}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+Hebrew:wght@400;600&display=swap');
+
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c96a;
+  --gold-dim: #7a6330;
+  --gold-pale: #3d3018;
+  --ink: #0a0806;
+  --parchment: #181208;
+  --parchment-mid: #1e160a;
+  --parchment-light: #28200f;
+  --text: #d4c09a;
+  --text-dim: #8a7a5a;
+  --text-bright: #f0e0b0;
+  --red: #8b3a3a;
+  --red-light: #c45c5c;
+  --blue: #2a4a6a;
+  --blue-light: #4a7aaa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: 'EB Garamond', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 0%, rgba(201,168,76,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, rgba(42,74,106,0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+/* ===== HEADER ===== */
+header {
+  text-align: center;
+  padding: 36px 0 28px;
+  border-bottom: 1px solid var(--gold-dim);
+  margin-bottom: 0;
+  position: relative;
+}
+header::after {
+  content: '✦';
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  padding: 0 14px;
+  color: var(--gold);
+  font-size: 13px;
+}
+.title-he {
+  font-family: 'Noto Serif Hebrew', serif;
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  color: var(--gold);
+  text-shadow: 0 0 50px rgba(201,168,76,0.4);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.title-sub {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+/* ===== TABS ===== */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--gold-pale);
+  margin-bottom: 32px;
+  margin-top: 24px;
+  gap: 0;
+}
+.tab {
+  flex: 1;
+  padding: 14px 8px;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  position: relative;
+  bottom: -1px;
+}
+.tab:hover { color: var(--text); }
+.tab.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+.tab-icon { display: block; font-size: 1.2rem; margin-bottom: 4px; }
+
+/* ===== PANELS ===== */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ===== SHARED COMPONENTS ===== */
+.section-box {
+  background: var(--parchment-mid);
+  border: 1px solid var(--gold-dim);
+  border-radius: 2px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.3);
+}
+.label-sm {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 10px;
+  display: block;
+}
+.input-he {
+  width: 100%;
+  background: var(--ink);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold-light);
+  font-family: 'Noto Serif Hebrew', serif;
+  font-size: 2rem;
+  padding: 14px 18px;
+  text-align: right;
+  direction: rtl;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  border-radius: 1px;
+  margin-bottom: 12px;
+}
+.input-he:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(201,168,76,0.15);
+}
+.input-he::placeholder { color: var(--gold-dim); opacity: 0.4; }
+.input-roman {
+  width: 100%;
+  background: var(--ink);
+  border: 1px solid var(--gold-pale);
+  color: var(--text);
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.3s;
+  border-radius: 1px;
+  margin-bottom: 12px;
+}
+.input-roman:focus { border-color: var(--gold-dim); }
+.input-roman::placeholder { color: var(--text-dim); opacity: 0.5; }
+.input-ja {
+  width: 100%;
+  background: var(--ink);
+  border: 1px solid var(--gold-pale);
+  color: var(--text);
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  padding: 10px 14px;
+  outline: none;
+  border-radius: 1px;
+  margin-bottom: 12px;
+  transition: border-color 0.3s;
+}
+.input-ja:focus { border-color: var(--gold-dim); }
+
+/* ===== KEYBOARD ===== */
+.keyboard { margin-top: 8px; }
+.kb-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 4px;
+  justify-content: flex-end;
+}
+.kb-key {
+  background: var(--parchment);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold-light);
+  font-family: 'Noto Serif Hebrew', serif;
+  font-size: 1rem;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s, transform 0.1s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.kb-key:hover { background: var(--gold-dim); color: var(--ink); transform: translateY(-1px); }
+.kb-key:active { transform: translateY(0); }
+.kb-val { font-size: 0.45rem; color: var(--text-dim); position: absolute; bottom: 2px; right: 2px; }
+.kb-key:hover .kb-val { color: var(--ink); }
+.kb-del {
+  background: var(--red);
+  border-color: var(--red-light);
+  color: #ffc;
+  font-size: 0.75rem;
+  width: auto;
+  padding: 0 10px;
+  font-family: 'EB Garamond', serif;
+}
+.kb-del:hover { background: var(--red-light); color: var(--ink); }
+.kb-clear {
+  background: var(--gold-pale);
+  border-color: var(--gold-dim);
+  color: var(--gold-light);
+  font-size: 0.7rem;
+  width: auto;
+  padding: 0 10px;
+  font-family: 'EB Garamond', serif;
+}
+
+/* ===== VALUE DISPLAY ===== */
+.value-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.val-box {
+  flex: 1;
+  min-width: 130px;
+  background: var(--ink);
+  border: 1px solid var(--gold-dim);
+  padding: 14px 16px;
+  text-align: center;
+}
+.val-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 4px; }
+.val-number {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2rem;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(201,168,76,0.4);
+  min-height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.val-formula { font-size: 0.7rem; color: var(--text-dim); margin-top: 6px; font-style: italic; direction: rtl; text-align: right; line-height: 1.5; min-height: 1rem; }
+
+/* ===== RESULTS ===== */
+.results-header {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  padding: 16px 0 10px;
+  border-bottom: 1px solid var(--parchment-light);
+  margin-bottom: 14px;
+}
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+.match-card {
+  background: var(--parchment-mid);
+  border: 1px solid var(--parchment-light);
+  border-left: 3px solid var(--gold-dim);
+  padding: 12px 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  animation: fadeIn 0.3s ease both;
+}
+.match-card:hover {
+  border-color: var(--gold);
+  border-left-color: var(--gold);
+  box-shadow: 0 0 16px rgba(201,168,76,0.08);
+}
+.match-he { font-family: 'Noto Serif Hebrew', serif; font-size: 1.5rem; color: var(--gold-light); direction: rtl; text-align: right; line-height: 1.3; }
+.match-tr { font-size: 0.85rem; color: var(--text); font-style: italic; margin-top: 2px; }
+.match-ref { font-size: 0.65rem; color: var(--text-dim); margin-top: 2px; }
+.match-badge { font-size: 0.6rem; color: var(--gold-dim); font-family: 'Cinzel Decorative', serif; float: right; }
+.no-match { text-align: center; color: var(--text-dim); font-style: italic; padding: 28px; grid-column: 1/-1; }
+
+/* ===== ADDER ===== */
+.adder {
+  background: var(--parchment);
+  border: 1px solid var(--parchment-light);
+  padding: 18px 22px;
+  margin-top: 24px;
+}
+.adder-title { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 12px; }
+.adder-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.adder-he {
+  background: var(--ink);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold-light);
+  font-family: 'Noto Serif Hebrew', serif;
+  font-size: 1.2rem;
+  padding: 7px 10px;
+  direction: rtl;
+  outline: none;
+  flex: 1;
+  min-width: 80px;
+  border-radius: 1px;
+}
+.adder-label {
+  background: var(--ink);
+  border: 1px solid var(--gold-dim);
+  color: var(--text);
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  padding: 7px 10px;
+  outline: none;
+  flex: 2;
+  min-width: 110px;
+  border-radius: 1px;
+}
+.btn {
+  background: var(--gold-dim);
+  border: none;
+  color: var(--ink);
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.7rem;
+  padding: 7px 14px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  transition: background 0.2s;
+  border-radius: 1px;
+}
+.btn:hover { background: var(--gold); }
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--gold-dim);
+  color: var(--gold-dim);
+}
+.btn-secondary:hover { background: var(--gold-pale); color: var(--gold); }
+
+/* ===== ROMANIZATION GUIDE ===== */
+.roman-guide {
+  background: var(--parchment);
+  border: 1px solid var(--parchment-light);
+  padding: 14px 18px;
+  margin-top: 8px;
+  display: none;
+}
+.roman-guide.open { display: block; }
+.roman-guide-title { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 10px; }
+.roman-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 4px; }
+.roman-item { font-size: 0.75rem; color: var(--text-dim); display: flex; justify-content: space-between; padding: 2px 6px; }
+.roman-item span:first-child { font-family: 'Noto Serif Hebrew', serif; color: var(--gold-light); font-size: 1rem; }
+
+/* ===== DICTIONARY ===== */
+.dict-results { margin-top: 20px; }
+.dict-card {
+  background: var(--parchment-mid);
+  border: 1px solid var(--parchment-light);
+  border-left: 3px solid var(--blue-light);
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  animation: fadeIn 0.3s ease both;
+}
+.dict-he { font-family: 'Noto Serif Hebrew', serif; font-size: 2rem; color: var(--gold-light); direction: rtl; text-align: right; }
+.dict-tr-ja { font-size: 1rem; color: var(--text-bright); margin-top: 4px; }
+.dict-tr-en { font-size: 0.85rem; color: var(--text-dim); font-style: italic; margin-top: 2px; }
+.dict-ref { font-size: 0.65rem; color: var(--gold-dim); margin-top: 6px; letter-spacing: 0.05em; }
+.dict-std { font-size: 0.7rem; color: var(--text-dim); margin-top: 4px; font-family: 'Cinzel Decorative', serif; }
+
+/* ===== PARASHA ===== */
+.parasha-current {
+  background: var(--parchment-mid);
+  border: 1px solid var(--gold-dim);
+  padding: 28px;
+  margin-bottom: 24px;
+  text-align: center;
+  position: relative;
+}
+.parasha-current::before {
+  content: '✦ פרשה השבוע ✦';
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.parasha-name-he {
+  font-family: 'Noto Serif Hebrew', serif;
+  font-size: 2.5rem;
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(201,168,76,0.3);
+  direction: rtl;
+}
+.parasha-name-en { font-size: 1rem; color: var(--text-dim); font-style: italic; margin-top: 4px; letter-spacing: 0.1em; }
+.parasha-portion { font-size: 0.85rem; color: var(--text); margin-top: 12px; line-height: 1.8; }
+.parasha-haftara { font-size: 0.75rem; color: var(--text-dim); margin-top: 6px; font-style: italic; }
+
+.festival-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 8px; }
+.festival-card {
+  background: var(--parchment-mid);
+  border: 1px solid var(--parchment-light);
+  padding: 16px 18px;
+  border-left: 3px solid var(--gold-dim);
+}
+.festival-card.upcoming { border-left-color: var(--gold); }
+.festival-name-he { font-family: 'Noto Serif Hebrew', serif; font-size: 1.4rem; color: var(--gold-light); direction: rtl; text-align: right; }
+.festival-name-ja { font-size: 0.9rem; color: var(--text); margin-top: 4px; }
+.festival-date { font-size: 0.75rem; color: var(--text-dim); margin-top: 4px; font-style: italic; }
+.festival-desc { font-size: 0.75rem; color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
+
+.parasha-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.85rem; }
+.parasha-table th { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dim); padding: 8px 10px; border-bottom: 1px solid var(--parchment-light); text-align: left; }
+.parasha-table td { padding: 8px 10px; border-bottom: 1px solid var(--parchment); color: var(--text); vertical-align: top; }
+.parasha-table td:first-child { font-family: 'Noto Serif Hebrew', serif; color: var(--gold-light); direction: rtl; font-size: 1rem; }
+.parasha-table tr:hover td { background: var(--parchment-mid); }
+.parasha-week { font-size: 0.65rem; color: var(--text-dim); }
+
+.empty-state { text-align: center; color: var(--text-dim); padding: 40px 0; font-style: italic; opacity: 0.6; }
+
+footer {
+  text-align: center;
+  margin-top: 48px;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  opacity: 0.4;
+  border-top: 1px solid var(--parchment-light);
+  padding-top: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Toggle */
+.toggle-btn {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  text-decoration: underline;
+  letter-spacing: 0.1em;
+  margin-top: 6px;
+  display: inline-block;
+}
+.toggle-btn:hover { color: var(--gold-dim); }
+
+.tab-desc { font-size: 0.65rem; color: var(--text-dim); margin-top: 2px; }
 </style>
 </head>
 <body>
-<div class="container">
-<header>
-<div class="title-he">גמטריה</div>
-<div class="title-sub">Gematria Oracle</div>
-</header>
-<div class="input-section">
-<span class="label">ヘブライ文字を入力</span>
-<input type="text" class="hebrew-input" id="mainInput" placeholder="אבג" dir="rtl"/>
-<div id="keyboard"></div>
-<div class="value-display">
-<div class="val-box"><div class="val-label">標準値 Hechrachi</div><div class="val-number" id="stdVal">—</div><div class="val-breakdown" id="stdBreak"></div></div>
-<div class="val-box"><div class="val-label">小数値 Katan</div><div class="val-number" id="katanVal">—</div></div>
+<div class="app">
+  <header>
+    <div class="title-he">מקרא</div>
+    <div class="title-sub">Mikra · 聖書ヘブライ語ツール</div>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('gematria')">
+      <span class="tab-icon">גמ</span>
+      Gematria
+    </div>
+    <div class="tab" onclick="switchTab('dict')">
+      <span class="tab-icon">מל</span>
+      辞典
+    </div>
+    <div class="tab" onclick="switchTab('parasha')">
+      <span class="tab-icon">פר</span>
+      パラシャー
+    </div>
+  </div>
+
+  <!-- ===== GEMATRIA PANEL ===== -->
+  <div id="panel-gematria" class="panel active">
+    <div class="section-box">
+      <span class="label-sm">ヘブライ文字を入力（キーボードまたは直接入力）</span>
+      <input type="text" class="input-he" id="gInput" placeholder="אבג" dir="rtl" oninput="onGInput()" />
+
+      <span class="label-sm" style="margin-top:8px">ローマ字入力（例: shalom → שלום）</span>
+      <input type="text" class="input-roman" id="gRoman" placeholder="shalom, yeshua, elohim ..." oninput="onRomanInput()" />
+      <span class="toggle-btn" onclick="toggleGuide()">▸ ローマ字対応表を見る</span>
+
+      <div class="roman-guide" id="romanGuide">
+        <div class="roman-guide-title">ローマ字 → ヘブライ文字 対応表</div>
+        <div class="roman-grid" id="romanGuideGrid"></div>
+      </div>
+
+      <div id="gKeyboard" class="keyboard" style="margin-top:16px"></div>
+
+      <div class="value-row">
+        <div class="val-box">
+          <div class="val-label">Mispar Hechrachi（標準値）</div>
+          <div class="val-number" id="gStdVal">—</div>
+          <div class="val-formula" id="gStdFormula"></div>
+        </div>
+        <div class="val-box">
+          <div class="val-label">Mispar Katan（小数値）</div>
+          <div class="val-number" id="gKatanVal">—</div>
+          <div class="val-formula" id="gKatanFormula"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="gResultsSection" style="display:none">
+      <div class="results-header" id="gResultsHeader">同値ワード</div>
+      <div class="match-grid" id="gMatchList"></div>
+    </div>
+    <div class="empty-state" id="gEmptyState">文字を入力すると、同じゲマトリア値を持つ聖書語彙が現れます</div>
+
+    <div class="adder">
+      <div class="adder-title">✦ 自分のワードを追加</div>
+      <div class="adder-row">
+        <input class="adder-he" id="addHe" placeholder="הוסף" dir="rtl" />
+        <input class="adder-label" id="addLabel" placeholder="意味・メモ（任意）" />
+        <button class="btn" onclick="addWord()">追加</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DICTIONARY PANEL ===== -->
+  <div id="panel-dict" class="panel">
+    <div class="section-box">
+      <span class="label-sm">ヘブライ語で検索</span>
+      <input type="text" class="input-he" id="dHeInput" placeholder="שלום" dir="rtl" oninput="onDictSearch()" />
+
+      <span class="label-sm" style="margin-top:8px">日本語で検索</span>
+      <input type="text" class="input-ja" id="dJaInput" placeholder="平和、救い、愛..." oninput="onDictSearch()" />
+
+      <span class="label-sm" style="margin-top:8px">英語で検索</span>
+      <input type="text" class="input-roman" id="dEnInput" placeholder="peace, salvation, love..." oninput="onDictSearch()" />
+    </div>
+
+    <div class="dict-results" id="dictResults">
+      <div class="empty-state">語を入力すると聖書語彙が表示されます</div>
+    </div>
+  </div>
+
+  <!-- ===== PARASHA PANEL ===== -->
+  <div id="panel-parasha" class="panel">
+    <div id="parashaCurrentBox" class="parasha-current"></div>
+
+    <div class="section-box">
+      <div class="results-header" style="padding-top:0">ユダヤ例祭カレンダー 2025–2026</div>
+      <div class="festival-list" id="festivalList"></div>
+    </div>
+
+    <div class="section-box">
+      <div class="results-header" style="padding-top:0">年間パラシャー一覧</div>
+      <table class="parasha-table">
+        <thead>
+          <tr>
+            <th>ヘブライ名</th>
+            <th>英語名</th>
+            <th>箇所</th>
+            <th>週</th>
+          </tr>
+        </thead>
+        <tbody id="parashaTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>מקרא Mikra · ヘブライ文字22文字 · 聖書語彙内蔵 · 占い要素なし · 聖書テキストのみ</footer>
 </div>
-</div>
-<div class="results-section" id="resultsSection" style="display:none">
-<div class="section-title" id="resultsTitle">同値ワード</div>
-<div class="match-list" id="matchList"></div>
-</div>
-<div class="empty-state" id="emptyState">文字を入力すると同じゲマトリア値を持つ語が現れます</div>
-<div class="adder">
-<div class="adder-title">✦ 自分のワードを追加</div>
-<div class="adder-row">
-<input class="adder-input" id="addHe" placeholder="הוסף" dir="rtl"/>
-<input class="adder-label-input" id="addLabel" placeholder="意味・メモ（任意）"/>
-<button class="adder-btn" onclick="addWord()">追加</button>
-</div>
-</div>
-<footer>ヘブライ文字22文字 · 標準 & 小数値対応 · 聖書語彙内蔵</footer>
-</div>
+
 <script>
-const STD={'א':1,'ב':2,'ג':3,'ד':4,'ה':5,'ו':6,'ז':7,'ח':8,'ט':9,'י':10,'כ':20,'ך':20,'ל':30,'מ':40,'ם':40,'נ':50,'ן':50,'ס':60,'ע':70,'פ':80,'ף':80,'צ':90,'ץ':90,'ק':100,'ר':200,'ש':300,'ת':400};
-const LETTERS=[{l:'א',v:1},{l:'ב',v:2},{l:'ג',v:3},{l:'ד',v:4},{l:'ה',v:5},{l:'ו',v:6},{l:'ז',v:7},{l:'ח',v:8},{l:'ט',v:9},{l:'י',v:10},{l:'כ',v:20},{l:'ל',v:30},{l:'מ',v:40},{l:'נ',v:50},{l:'ס',v:60},{l:'ע',v:70},{l:'פ',v:80},{l:'צ',v:90},{l:'ק',v:100},{l:'ר',v:200},{l:'ש',v:300},{l:'ת',v:400}];
-const FINALS=[{l:'ך',v:20},{l:'ם',v:40},{l:'ן',v:50},{l:'ף',v:80},{l:'ץ',v:90}];
-function stdVal(w){return[...w].reduce((s,c)=>s+(STD[c]||0),0)}
-function katanVal(w){let s=0;for(const c of w){let v=STD[c]||0;while(v>=10)v=[...String(v)].reduce((a,d)=>a+Number(d),0);s+=v}return s}
-let wordDB=[
-{he:'אלהים',tr:'Elohim（神）',ref:'創世記1:1'},{he:'בראשית',tr:'初めに',ref:'創世記1:1'},{he:'ארץ',tr:'地',ref:'創世記1:1'},{he:'שמים',tr:'天',ref:'創世記1:1'},{he:'אור',tr:'光',ref:'創世記1:3'},{he:'חשך',tr:'闇',ref:'創世記1:2'},{he:'מים',tr:'水',ref:'創世記1:2'},{he:'רוח',tr:'霊・風',ref:'創世記1:2'},{he:'יהוה',tr:'YHWH（神の名）',ref:'出エジプト3:14'},{he:'אדני',tr:'主（アドナイ）',ref:'詩篇8:1'},{he:'שדי',tr:'全能者（シャダイ）',ref:'創世記17:1'},{he:'אל',tr:'神（エル）',ref:'創世記14:18'},{he:'ישוע',tr:'イェシュア（救い）',ref:'マタイ1:21'},{he:'ישועה',tr:'救い',ref:'詩篇118:14'},{he:'משיח',tr:'メシア',ref:'ダニエル9:25'},{he:'גואל',tr:'贖い主',ref:'ルツ4:14'},{he:'תורה',tr:'トーラー（律法）',ref:'詩篇119:1'},{he:'ברית',tr:'契約',ref:'創世記17:2'},{he:'שלום',tr:'シャローム（平和）',ref:'民数記6:26'},{he:'אמת',tr:'真理・誠実',ref:'詩篇25:5'},{he:'חסד',tr:'慈しみ（ヘセド）',ref:'詩篇136'},{he:'אהבה',tr:'愛',ref:'申命記6:5'},{he:'אמונה',tr:'信仰・誠実',ref:'ハバクク2:4'},{he:'אדם',tr:'アダム・人間',ref:'創世記1:27'},{he:'נפש',tr:'魂（ネフェシュ）',ref:'創世記2:7'},{he:'נשמה',tr:'息・霊（ネシャマー）',ref:'創世記2:7'},{he:'לב',tr:'心',ref:'申命記6:5'},{he:'אחד',tr:'一・唯一',ref:'申命記6:4'},{he:'שבע',tr:'七・完全',ref:'創世記2:2'},{he:'מלאך',tr:'御使い',ref:'創世記16:7'},{he:'שטן',tr:'サタン（敵対者）',ref:'ヨブ記1:6'},{he:'נחש',tr:'蛇',ref:'創世記3:1'},{he:'עולם',tr:'世界・永遠',ref:'コヘレト3:11'},{he:'עדן',tr:'エデン',ref:'創世記2:8'},{he:'ירושלם',tr:'エルサレム',ref:'詩篇122:1'},{he:'ציון',tr:'シオン',ref:'詩篇48:2'},{he:'כבוד',tr:'栄光',ref:'詩篇19:2'},{he:'קדוש',tr:'聖なる',ref:'イザヤ6:3'},{he:'חכמה',tr:'知恵（ホクマー）',ref:'箴言1:1'},{he:'בינה',tr:'理解（ビナー）',ref:'箴言1:2'},{he:'דעת',tr:'知識（ダアト）',ref:'箴言1:4'},{he:'חיים',tr:'命・生',ref:'申命記30:19'},{he:'מות',tr:'死',ref:'創世記2:17'},{he:'נביא',tr:'預言者',ref:'申命記18:15'},{he:'מלך',tr:'王',ref:'詩篇10:16'},{he:'כהן',tr:'祭司',ref:'出エジプト28:1'},{he:'דוד',tr:'ダビデ',ref:'サムエル記'},{he:'משה',tr:'モーセ',ref:'出エジプト2'},{he:'אברהם',tr:'アブラハム',ref:'創世記12:1'},{he:'יצחק',tr:'イサク',ref:'創世記21:3'},{he:'יעקב',tr:'ヤコブ',ref:'創世記25:26'},{he:'שמע',tr:'聞け（シェマー）',ref:'申命記6:4'}
+// =================== DATA ===================
+const STD = {
+  'א':1,'ב':2,'ג':3,'ד':4,'ה':5,'ו':6,'ז':7,'ח':8,'ט':9,'י':10,
+  'כ':20,'ך':20,'ל':30,'מ':40,'ם':40,'נ':50,'ן':50,'ס':60,'ע':70,
+  'פ':80,'ף':80,'צ':90,'ץ':90,'ק':100,'ר':200,'ש':300,'ת':400
+};
+
+const LETTERS = [
+  {l:'א',v:1,r:'a'},{l:'ב',v:2,r:'b'},{l:'ג',v:3,r:'g'},{l:'ד',v:4,r:'d'},{l:'ה',v:5,r:'h'},
+  {l:'ו',v:6,r:'v'},{l:'ז',v:7,r:'z'},{l:'ח',v:8,r:'ch'},{l:'ט',v:9,r:'t'},{l:'י',v:10,r:'y'},
+  {l:'כ',v:20,r:'k'},{l:'ל',v:30,r:'l'},{l:'מ',v:40,r:'m'},{l:'נ',v:50,r:'n'},{l:'ס',v:60,r:'s'},
+  {l:'ע',v:70,r:'`'},{l:'פ',v:80,r:'p'},{l:'צ',v:90,r:'ts'},{l:'ק',v:100,r:'q'},{l:'ר',v:200,r:'r'},
+  {l:'ש',v:300,r:'sh'},{l:'ת',v:400,r:'th'},
 ];
-wordDB.forEach(w=>{w.std=stdVal(w.he);w.katan=katanVal(w.he)});
-function buildKeyboard(){
-const kb=document.getElementById('keyboard');
-[[...LETTERS.slice(0,11)],[...LETTERS.slice(11,22)],[...FINALS,{l:'⌫',del:true}]].forEach(row=>{
-const div=document.createElement('div');div.className='kb-row';
-row.forEach(k=>{const btn=document.createElement('button');
-if(k.del){btn.className='kb-key kb-del';btn.textContent='⌫ 削除';btn.onclick=()=>{const i=document.getElementById('mainInput');i.value=i.value.slice(0,-1);update()}}
-else{btn.className='kb-key';btn.innerHTML=`${k.l}<span class="kb-val">${k.v}</span>`;btn.onclick=()=>{document.getElementById('mainInput').value+=k.l;update()}}
-div.appendChild(btn)});kb.appendChild(div)})
+const FINALS = [
+  {l:'ך',v:20,r:'kh'},{l:'ם',v:40,r:'mh'},{l:'ן',v:50,r:'nh'},{l:'ף',v:80,r:'ph'},{l:'ץ',v:90,r:'tsh'},
+];
+
+// Romanization map
+const ROMAN_MAP = {
+  'alef':'א','aleph':'א',
+  'bet':'ב','beth':'ב','b':'ב',
+  'gimel':'ג','g':'ג',
+  'dalet':'ד','d':'ד',
+  'he':'ה','heh':'ה',
+  'vav':'ו','waw':'ו',
+  'zayin':'ז','z':'ז',
+  'chet':'ח','het':'ח','ch':'ח','kh':'ח',
+  'tet':'ט',
+  'yod':'י','y':'י','j':'י',
+  'kaf':'כ','k':'כ',
+  'lamed':'ל','l':'ל',
+  'mem':'מ','m':'מ',
+  'nun':'נ','n':'נ',
+  'samech':'ס','samekh':'ס',
+  'ayin':'ע',
+  'pe':'פ','peh':'פ','p':'פ','ph':'פ','f':'פ',
+  'tsadi':'צ','tsade':'צ','ts':'צ','tz':'צ',
+  'qof':'ק','qoph':'ק','q':'ק',
+  'resh':'ר','r':'ר',
+  'shin':'ש','sh':'ש',
+  'tav':'ת','taw':'ת','th':'ת',
+  // Common words
+  'shalom':'שלום',
+  'yeshua':'ישוע',
+  'elohim':'אלהים',
+  'yhwh':'יהוה',
+  'adonai':'אדני',
+  'torah':'תורה',
+  'emet':'אמת',
+  'ahava':'אהבה',
+  'mashiach':'משיח',
+  'ruach':'רוח',
+  'nefesh':'נפש',
+  'neshamah':'נשמה',
+  'shabbat':'שבת',
+  'israel':'ישראל',
+  'jerusalem':'ירושלם',
+  'bereshit':'בראשית',
+  'adam':'אדם',
+  'chava':'חוה',
+  'moshe':'משה',
+  'david':'דוד',
+  'shlomo':'שלמה',
+  'avraham':'אברהם',
+};
+
+// Word database
+let wordDB = [
+  // Creation
+  {he:'אלהים', ja:'エロヒム（神）', en:'Elohim (God)', ref:'創世記 1:1', cat:'神の名'},
+  {he:'בראשית', ja:'初めに', en:'In the beginning', ref:'創世記 1:1', cat:'創造'},
+  {he:'ארץ', ja:'地', en:'Earth / Land', ref:'創世記 1:1', cat:'創造'},
+  {he:'שמים', ja:'天', en:'Heavens / Sky', ref:'創世記 1:1', cat:'創造'},
+  {he:'אור', ja:'光', en:'Light', ref:'創世記 1:3', cat:'創造'},
+  {he:'חשך', ja:'闇', en:'Darkness', ref:'創世記 1:2', cat:'創造'},
+  {he:'מים', ja:'水', en:'Water', ref:'創世記 1:2', cat:'創造'},
+  {he:'יום', ja:'日・昼', en:'Day', ref:'創世記 1:5', cat:'創造'},
+  {he:'לילה', ja:'夜', en:'Night', ref:'創世記 1:5', cat:'創造'},
+  {he:'רוח', ja:'霊・風', en:'Spirit / Wind / Breath', ref:'創世記 1:2', cat:'霊性'},
+  // Names of God
+  {he:'יהוה', ja:'YHWH（神の固有名）', en:'YHWH / LORD', ref:'出エジプト 3:14', cat:'神の名'},
+  {he:'אדני', ja:'主（アドナイ）', en:'Adonai / Lord', ref:'詩篇 8:1', cat:'神の名'},
+  {he:'שדי', ja:'全能者（シャダイ）', en:'Shaddai / Almighty', ref:'創世記 17:1', cat:'神の名'},
+  {he:'אל', ja:'神（エル）', en:'El / God', ref:'創世記 14:18', cat:'神の名'},
+  {he:'אל שדי', ja:'全能の神', en:'God Almighty', ref:'創世記 17:1', cat:'神の名'},
+  {he:'יהוה צבאות', ja:'万軍の主', en:'LORD of Hosts', ref:'サムエル上 1:3', cat:'神の名'},
+  // Yeshua / Salvation
+  {he:'ישוע', ja:'イェシュア（救い）', en:'Yeshua / Jesus', ref:'マタイ 1:21', cat:'救い'},
+  {he:'ישועה', ja:'救い', en:'Salvation / Yeshua', ref:'詩篇 118:14', cat:'救い'},
+  {he:'משיח', ja:'メシア（油注がれた者）', en:'Messiah / Christ', ref:'ダニエル 9:25', cat:'救い'},
+  {he:'גואל', ja:'贖い主', en:'Redeemer / Kinsman-redeemer', ref:'ルツ 4:14', cat:'救い'},
+  {he:'פדה', ja:'贖う', en:'Redeem / Ransom', ref:'詩篇 130:8', cat:'救い'},
+  {he:'כפר', ja:'贖罪する', en:'Atone / Cover', ref:'レビ 16:30', cat:'救い'},
+  // Torah / Covenant
+  {he:'תורה', ja:'トーラー（律法・教え）', en:'Torah / Law / Teaching', ref:'詩篇 119:1', cat:'契約'},
+  {he:'ברית', ja:'契約', en:'Covenant', ref:'創世記 17:2', cat:'契約'},
+  {he:'שלום', ja:'シャローム（平和・完全）', en:'Shalom / Peace / Completeness', ref:'民数記 6:26', cat:'祝福'},
+  {he:'אמת', ja:'真理・誠実', en:'Truth / Faithfulness', ref:'詩篇 25:5', cat:'性質'},
+  {he:'חסד', ja:'慈しみ（ヘセド）', en:'Hesed / Lovingkindness / Mercy', ref:'詩篇 136', cat:'性質'},
+  {he:'אהבה', ja:'愛', en:'Love / Ahava', ref:'申命記 6:5', cat:'性質'},
+  {he:'אמונה', ja:'信仰・誠実', en:'Faith / Faithfulness / Emunah', ref:'ハバクク 2:4', cat:'性質'},
+  {he:'צדקה', ja:'義・正義', en:'Righteousness / Justice / Tzedakah', ref:'創世記 15:6', cat:'性質'},
+  {he:'חכמה', ja:'知恵（ホクマー）', en:'Wisdom / Hokmah', ref:'箴言 1:1', cat:'知恵'},
+  {he:'בינה', ja:'理解（ビナー）', en:'Understanding / Binah', ref:'箴言 1:2', cat:'知恵'},
+  {he:'דעת', ja:'知識（ダアト）', en:'Knowledge / Da`at', ref:'箴言 1:4', cat:'知恵'},
+  // Human / Soul
+  {he:'אדם', ja:'アダム・人間', en:'Adam / Man / Human', ref:'創世記 1:27', cat:'人間'},
+  {he:'חוה', ja:'エバ（命の母）', en:'Eve / Chava', ref:'創世記 3:20', cat:'人間'},
+  {he:'נפש', ja:'魂（ネフェシュ）', en:'Soul / Nephesh / Life', ref:'創世記 2:7', cat:'人間'},
+  {he:'נשמה', ja:'息・霊（ネシャマー）', en:'Breath / Spirit / Neshamah', ref:'創世記 2:7', cat:'人間'},
+  {he:'נשמת חיים', ja:'命の息吹', en:'Breath of life', ref:'創世記 2:7', cat:'人間'},
+  {he:'לב', ja:'心', en:'Heart / Lev', ref:'申命記 6:5', cat:'人間'},
+  {he:'בשר', ja:'肉（体）', en:'Flesh / Body / Basar', ref:'創世記 2:23', cat:'人間'},
+  {he:'עין', ja:'目', en:'Eye', ref:'詩篇 121:1', cat:'人間'},
+  {he:'יד', ja:'手', en:'Hand', ref:'詩篇 22:17', cat:'人間'},
+  // Numbers
+  {he:'אחד', ja:'一・唯一', en:'One / Echad', ref:'申命記 6:4', cat:'数'},
+  {he:'שבע', ja:'七・完全', en:'Seven / Complete', ref:'創世記 2:2', cat:'数'},
+  {he:'שנים עשר', ja:'十二', en:'Twelve', ref:'創世記 49', cat:'数'},
+  // Prophecy / End times
+  {he:'מלאך', ja:'御使い・天使', en:'Angel / Messenger / Malak', ref:'創世記 16:7', cat:'霊性'},
+  {he:'שטן', ja:'サタン（敵対者）', en:'Satan / Adversary', ref:'ヨブ 1:6', cat:'霊性'},
+  {he:'נחש', ja:'蛇', en:'Serpent / Nachash', ref:'創世記 3:1', cat:'霊性'},
+  {he:'עולם', ja:'世界・永遠', en:'World / Eternity / Olam', ref:'コヘレト 3:11', cat:'創造'},
+  {he:'עדן', ja:'エデン', en:'Eden / Delight', ref:'創世記 2:8', cat:'場所'},
+  {he:'ירושלם', ja:'エルサレム', en:'Jerusalem', ref:'詩篇 122:1', cat:'場所'},
+  {he:'ציון', ja:'シオン', en:'Zion', ref:'詩篇 48:2', cat:'場所'},
+  {he:'ישראל', ja:'イスラエル', en:'Israel', ref:'創世記 32:28', cat:'場所'},
+  // Phrases / Compound
+  {he:'בני אלהים', ja:'神の子ら', en:'Sons of God / Bene Elohim', ref:'創世記 6:2', cat:'複合語'},
+  {he:'קדוש ישראל', ja:'イスラエルの聖なる者', en:'Holy One of Israel', ref:'イザヤ 1:4', cat:'複合語'},
+  {he:'מלך המלכים', ja:'王の王', en:'King of Kings', ref:'エズラ 7:12', cat:'複合語'},
+  {he:'שמע ישראל', ja:'聞け、イスラエル', en:'Hear O Israel / Shema', ref:'申命記 6:4', cat:'複合語'},
+  {he:'רוח הקדש', ja:'聖霊', en:'Holy Spirit / Ruach HaKodesh', ref:'イザヤ 63:10', cat:'複合語'},
+  {he:'ארון הברית', ja:'契約の箱', en:'Ark of the Covenant', ref:'民数記 10:33', cat:'複合語'},
+  {he:'בית המקדש', ja:'神殿', en:'Temple / House of the Holy', ref:'列王記上 8', cat:'場所'},
+  // More
+  {he:'כבוד', ja:'栄光', en:'Glory / Kavod', ref:'詩篇 19:2', cat:'性質'},
+  {he:'קדוש', ja:'聖なる', en:'Holy / Kadosh', ref:'イザヤ 6:3', cat:'性質'},
+  {he:'מות', ja:'死', en:'Death / Mavet', ref:'創世記 2:17', cat:'創造'},
+  {he:'חיים', ja:'命・生', en:'Life / Chayyim', ref:'申命記 30:19', cat:'創造'},
+  {he:'נביא', ja:'預言者', en:'Prophet / Navi', ref:'申命記 18:15', cat:'職分'},
+  {he:'כהן', ja:'祭司', en:'Priest / Kohen', ref:'出エジプト 28:1', cat:'職分'},
+  {he:'מלך', ja:'王', en:'King / Melekh', ref:'詩篇 10:16', cat:'職分'},
+  {he:'דוד', ja:'ダビデ', en:'David / Beloved', ref:'サムエル記', cat:'人物'},
+  {he:'שלמה', ja:'ソロモン', en:'Solomon / Shlomo', ref:'列王記上 1', cat:'人物'},
+  {he:'משה', ja:'モーセ', en:'Moses / Moshe', ref:'出エジプト 2', cat:'人物'},
+  {he:'אברהם', ja:'アブラハム', en:'Abraham / Avraham', ref:'創世記 12:1', cat:'人物'},
+  {he:'יצחק', ja:'イサク', en:'Isaac / Yitzhak', ref:'創世記 21:3', cat:'人物'},
+  {he:'יעקב', ja:'ヤコブ', en:'Jacob / Ya`akov', ref:'創世記 25:26', cat:'人物'},
+  {he:'יוסף', ja:'ヨセフ', en:'Joseph / Yosef', ref:'創世記 30:24', cat:'人物'},
+  {he:'דניאל', ja:'ダニエル', en:'Daniel', ref:'ダニエル 1:1', cat:'人物'},
+  {he:'אליהו', ja:'エリヤ', en:'Elijah / Eliyahu', ref:'列王記上 17', cat:'人物'},
+  {he:'ישעיהו', ja:'イザヤ', en:'Isaiah / Yeshayahu', ref:'イザヤ 1:1', cat:'人物'},
+  {he:'ספר', ja:'書・巻物', en:'Book / Scroll / Sefer', ref:'', cat:'その他'},
+  {he:'שבת', ja:'安息日', en:'Sabbath / Shabbat', ref:'創世記 2:3', cat:'例祭'},
+  {he:'פסח', ja:'過越（ペサハ）', en:'Passover / Pesach', ref:'出エジプト 12', cat:'例祭'},
+  {he:'שבועות', ja:'七週・ペンテコステ', en:'Shavuot / Weeks / Pentecost', ref:'レビ 23:15', cat:'例祭'},
+  {he:'סוכות', ja:'仮庵の祭', en:'Sukkot / Tabernacles / Booths', ref:'レビ 23:34', cat:'例祭'},
+  {he:'ראש השנה', ja:'新年（ユダヤ）', en:'Rosh Hashanah / New Year', ref:'レビ 23:24', cat:'例祭'},
+  {he:'יום כיפור', ja:'贖罪の日', en:'Yom Kippur / Day of Atonement', ref:'レビ 23:27', cat:'例祭'},
+];
+
+// Compute values
+wordDB.forEach(w => {
+  w.std = stdVal(w.he);
+  w.katan = katanVal(w.he);
+});
+
+// =================== GEMATRIA FUNCTIONS ===================
+function stdVal(word) {
+  return [...word].reduce((s,c) => s + (STD[c]||0), 0);
 }
-function update(){
-const word=document.getElementById('mainInput').value.replace(/[^\u05D0-\u05EA]/g,'');
-document.getElementById('mainInput').value=word;
-const sv=word?stdVal(word):null,kv=word?katanVal(word):null;
-document.getElementById('stdVal').textContent=sv!==null?sv:'—';
-document.getElementById('katanVal').textContent=kv!==null?kv:'—';
-document.getElementById('stdBreak').textContent=word?[...word].filter(c=>STD[c]).map(c=>`${c}=${STD[c]}`).join('+'):'';
-const rs=document.getElementById('resultsSection'),es=document.getElementById('emptyState');
-if(!word){rs.style.display='none';es.style.display='block';return}
-es.style.display='none';rs.style.display='block';
-const matches=wordDB.filter(w=>w.he!==word&&(w.std===sv||w.katan===kv));
-matches.sort((a,b)=>(b.std===sv)-(a.std===sv));
-document.getElementById('resultsTitle').textContent=`同値ワード — 標準:${sv} / 小数:${kv} — ${matches.length}件`;
-const list=document.getElementById('matchList');list.innerHTML='';
-if(!matches.length){list.innerHTML='<div class="no-match">一致するワードが見つかりません</div>';return}
-matches.forEach(w=>{const card=document.createElement('div');card.className='match-card';
-const badges=[];if(w.std===sv)badges.push(`標準:${w.std}`);if(w.katan===kv)badges.push(`小数:${w.katan}`);
-card.innerHTML=`<span class="match-val">${badges.join('|')}</span><div class="match-he">${w.he}</div><div class="match-trans">${w.tr}</div>${w.ref?`<div class="match-ref">${w.ref}</div>`:''}`;
-list.appendChild(card)})
+function katanVal(word) {
+  let s = 0;
+  for (const c of word) {
+    let v = STD[c]||0;
+    while (v >= 10) v = [...String(v)].reduce((a,d) => a+Number(d), 0);
+    s += v;
+  }
+  return s;
 }
-function addWord(){
-const he=document.getElementById('addHe').value.replace(/[^\u05D0-\u05EA]/g,'');
-const label=document.getElementById('addLabel').value.trim()||'（メモなし）';
-if(!he)return;
-wordDB.push({he,tr:label,ref:'（追加）',std:stdVal(he),katan:katanVal(he)});
-document.getElementById('addHe').value='';document.getElementById('addLabel').value='';update()
+function buildFormula(word) {
+  const parts = [...word].filter(c => STD[c]);
+  if (!parts.length) return '';
+  return parts.map(c => `${c}=${STD[c]}`).join(' + ');
 }
-buildKeyboard();
-document.getElementById('mainInput').addEventListener('input',update);
+
+// =================== KEYBOARD ===================
+function buildKeyboard(targetId) {
+  const kb = document.getElementById(targetId);
+  const rows = [
+    LETTERS.slice(0,11),
+    LETTERS.slice(11,22),
+    [...FINALS, {del:true}, {clear:true}],
+  ];
+  rows.forEach(row => {
+    const div = document.createElement('div');
+    div.className = 'kb-row';
+    row.forEach(k => {
+      const btn = document.createElement('button');
+      if (k.del) {
+        btn.className = 'kb-key kb-del';
+        btn.textContent = '⌫ 削除';
+        btn.onclick = () => { const inp = document.getElementById('gInput'); inp.value = inp.value.slice(0,-1); onGInput(); };
+      } else if (k.clear) {
+        btn.className = 'kb-key kb-clear';
+        btn.textContent = '✕ 全消';
+        btn.onclick = () => { document.getElementById('gInput').value = ''; document.getElementById('gRoman').value = ''; onGInput(); };
+      } else {
+        btn.className = 'kb-key';
+        btn.innerHTML = `${k.l}<span class="kb-val">${k.v}</span>`;
+        btn.onclick = () => { const inp = document.getElementById('gInput'); inp.value += k.l; onGInput(); };
+      }
+      div.appendChild(btn);
+    });
+    kb.appendChild(div);
+  });
+}
+
+// =================== ROMAN GUIDE ===================
+function buildRomanGuide() {
+  const grid = document.getElementById('romanGuideGrid');
+  const entries = [
+    ['א','a/alef'],['ב','b/bet'],['ג','g/gimel'],['ד','d/dalet'],['ה','h/he'],
+    ['ו','v/vav'],['ז','z/zayin'],['ח','ch/chet'],['ט','t/tet'],['י','y/yod'],
+    ['כ','k/kaf'],['ל','l/lamed'],['מ','m/mem'],['נ','n/nun'],['ס','s/samech'],
+    ['ע','ayin'],['פ','p/pe'],['צ','ts/tsadi'],['ק','q/qof'],['ר','r/resh'],
+    ['ש','sh/shin'],['ת','th/tav'],
+  ];
+  entries.forEach(([he,rom]) => {
+    const div = document.createElement('div');
+    div.className = 'roman-item';
+    div.innerHTML = `<span>${he}</span><span style="font-size:0.7rem">${rom}</span>`;
+    grid.appendChild(div);
+  });
+}
+function toggleGuide() {
+  const g = document.getElementById('romanGuide');
+  g.classList.toggle('open');
+}
+
+// =================== ROMAN INPUT ===================
+function onRomanInput() {
+  const raw = document.getElementById('gRoman').value.toLowerCase().trim();
+  if (!raw) return;
+  // Check full word map first
+  if (ROMAN_MAP[raw]) {
+    document.getElementById('gInput').value = ROMAN_MAP[raw];
+    onGInput();
+    return;
+  }
+  // Try partial: convert letter by letter
+  let result = '';
+  let i = 0;
+  while (i < raw.length) {
+    let matched = false;
+    // Try 2-char combos first
+    if (i+1 < raw.length) {
+      const two = raw.slice(i, i+2);
+      const twoMap = {'sh':'ש','ch':'ח','ts':'צ','tz':'צ','th':'ת','kh':'ח','ph':'פ','mh':'ם','nh':'ן','tsh':'ץ'};
+      if (twoMap[two]) { result += twoMap[two]; i += 2; matched = true; }
+    }
+    if (!matched) {
+      const one = raw[i];
+      const oneMap = {'a':'א','b':'ב','g':'ג','d':'ד','h':'ה','v':'ו','w':'ו','z':'ז','y':'י','j':'י','k':'כ','l':'ל','m':'מ','n':'נ','s':'ס','p':'פ','q':'ק','r':'ר','f':'פ'};
+      if (oneMap[one]) result += oneMap[one];
+      i++;
+    }
+  }
+  if (result) {
+    document.getElementById('gInput').value = result;
+    onGInput();
+  }
+}
+
+// =================== GEMATRIA UPDATE ===================
+function onGInput() {
+  const raw = document.getElementById('gInput').value;
+  const word = [...raw].filter(c => /[\u05D0-\u05EA]/.test(c)).join('');
+  document.getElementById('gInput').value = word;
+
+  if (!word) {
+    document.getElementById('gStdVal').textContent = '—';
+    document.getElementById('gKatanVal').textContent = '—';
+    document.getElementById('gStdFormula').textContent = '';
+    document.getElementById('gKatanFormula').textContent = '';
+    document.getElementById('gResultsSection').style.display = 'none';
+    document.getElementById('gEmptyState').style.display = 'block';
+    return;
+  }
+
+  const sv = stdVal(word);
+  const kv = katanVal(word);
+  const formula = buildFormula(word);
+
+  document.getElementById('gStdVal').textContent = sv;
+  document.getElementById('gKatanVal').textContent = kv;
+  document.getElementById('gStdFormula').textContent = formula ? formula + ' = ' + sv : '';
+  document.getElementById('gKatanFormula').textContent = '';
+
+  document.getElementById('gEmptyState').style.display = 'none';
+  document.getElementById('gResultsSection').style.display = 'block';
+
+  const matches = wordDB.filter(w => w.he !== word && (w.std === sv || w.katan === kv));
+  matches.sort((a,b) => {
+    if (a.std === sv && b.std !== sv) return -1;
+    if (a.std !== sv && b.std === sv) return 1;
+    return a.std - b.std;
+  });
+
+  document.getElementById('gResultsHeader').textContent =
+    `同値ワード — 標準値: ${sv} / 小数値: ${kv} — ${matches.length}件`;
+
+  const list = document.getElementById('gMatchList');
+  list.innerHTML = '';
+  if (!matches.length) {
+    list.innerHTML = '<div class="no-match">一致する語が見つかりません。下から語を追加できます。</div>';
+    return;
+  }
+  matches.forEach(w => {
+    const card = document.createElement('div');
+    card.className = 'match-card';
+    const badges = [];
+    if (w.std === sv) badges.push(`標準:${w.std}`);
+    if (w.katan === kv) badges.push(`小数:${w.katan}`);
+    card.innerHTML = `
+      <span class="match-badge">${badges.join(' | ')}</span>
+      <div class="match-he">${w.he}</div>
+      <div class="match-tr">${w.ja}</div>
+      <div class="match-tr" style="font-size:0.75rem;color:var(--text-dim)">${w.en}</div>
+      ${w.ref ? `<div class="match-ref">${w.ref}</div>` : ''}
+    `;
+    list.appendChild(card);
+  });
+}
+
+function addWord() {
+  const he = document.getElementById('addHe').value.replace(/[^\u05D0-\u05EA]/g,'');
+  const label = document.getElementById('addLabel').value.trim() || '（メモなし）';
+  if (!he) return;
+  wordDB.push({he, ja: label, en: label, ref:'（追加）', cat:'追加', std: stdVal(he), katan: katanVal(he)});
+  document.getElementById('addHe').value = '';
+  document.getElementById('addLabel').value = '';
+  onGInput();
+}
+
+// =================== DICTIONARY ===================
+function onDictSearch() {
+  const heQ = document.getElementById('dHeInput').value.trim();
+  const jaQ = document.getElementById('dJaInput').value.trim().toLowerCase();
+  const enQ = document.getElementById('dEnInput').value.trim().toLowerCase();
+
+  if (!heQ && !jaQ && !enQ) {
+    document.getElementById('dictResults').innerHTML = '<div class="empty-state">語を入力すると聖書語彙が表示されます</div>';
+    return;
+  }
+
+  const results = wordDB.filter(w => {
+    if (heQ && w.he.includes(heQ)) return true;
+    if (jaQ && w.ja.toLowerCase().includes(jaQ)) return true;
+    if (enQ && w.en.toLowerCase().includes(enQ)) return true;
+    return false;
+  });
+
+  const container = document.getElementById('dictResults');
+  container.innerHTML = '';
+
+  if (!results.length) {
+    container.innerHTML = '<div class="empty-state">該当する語が見つかりません</div>';
+    return;
+  }
+
+  results.forEach(w => {
+    const card = document.createElement('div');
+    card.className = 'dict-card';
+    card.innerHTML = `
+      <div class="dict-he">${w.he}</div>
+      <div class="dict-tr-ja">🇯🇵 ${w.ja}</div>
+      <div class="dict-tr-en">🇬🇧 ${w.en}</div>
+      ${w.ref ? `<div class="dict-ref">📖 ${w.ref}</div>` : ''}
+      <div class="dict-std">גמ 標準値: ${w.std} · 小数値: ${w.katan} · ${w.cat}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// =================== PARASHA DATA ===================
+const PARASHA_LIST = [
+  {he:'בְּרֵאשִׁית', en:'Bereshit', portion:'創世記 1:1–6:8', haftara:'イザヤ 42:5–43:10'},
+  {he:'נֹחַ', en:'Noach', portion:'創世記 6:9–11:32', haftara:'イザヤ 54:1–55:5'},
+  {he:'לֶךְ-לְךָ', en:'Lech-Lecha', portion:'創世記 12:1–17:27', haftara:'イザヤ 40:27–41:16'},
+  {he:'וַיֵּרָא', en:'Vayera', portion:'創世記 18:1–22:24', haftara:'列王記下 4:1–37'},
+  {he:'חַיֵּי שָׂרָה', en:'Chayei Sarah', portion:'創世記 23:1–25:18', haftara:'列王記上 1:1–31'},
+  {he:'תּוֹלְדֹת', en:'Toldot', portion:'創世記 25:19–28:9', haftara:'マラキ 1:1–2:7'},
+  {he:'וַיֵּצֵא', en:'Vayetzei', portion:'創世記 28:10–32:3', haftara:'ホセア 12:12–14:10'},
+  {he:'וַיִּשְׁלַח', en:'Vayishlach', portion:'創世記 32:4–36:43', haftara:'ホセア 11:7–12:12'},
+  {he:'וַיֵּשֶׁב', en:'Vayeshev', portion:'創世記 37:1–40:23', haftara:'アモス 2:6–3:8'},
+  {he:'מִקֵּץ', en:'Miketz', portion:'創世記 41:1–44:17', haftara:'列王記上 3:15–4:1'},
+  {he:'וַיִּגַּשׁ', en:'Vayigash', portion:'創世記 44:18–47:27', haftara:'エゼキエル 37:15–28'},
+  {he:'וַיְחִי', en:'Vayechi', portion:'創世記 47:28–50:26', haftara:'列王記上 2:1–12'},
+  {he:'שְׁמוֹת', en:'Shemot', portion:'出エジプト 1:1–6:1', haftara:'イザヤ 27:6–28:13'},
+  {he:'וָאֵרָא', en:"Va'era", portion:'出エジプト 6:2–9:35', haftara:'エゼキエル 28:25–29:21'},
+  {he:'בֹּא', en:'Bo', portion:'出エジプト 10:1–13:16', haftara:'エレミヤ 46:13–28'},
+  {he:'בְּשַׁלַּח', en:'Beshalach', portion:'出エジプト 13:17–17:16', haftara:'士師記 4:4–5:31'},
+  {he:'יִתְרוֹ', en:'Yitro', portion:'出エジプト 18:1–20:23', haftara:'イザヤ 6:1–7:6'},
+  {he:'מִשְׁפָּטִים', en:'Mishpatim', portion:'出エジプト 21:1–24:18', haftara:'エレミヤ 34:8–22'},
+  {he:'תְּרוּמָה', en:'Terumah', portion:'出エジプト 25:1–27:19', haftara:'列王記上 5:26–6:13'},
+  {he:'תְּצַוֶּה', en:'Tetzaveh', portion:'出エジプト 27:20–30:10', haftara:'エゼキエル 43:10–27'},
+  {he:'כִּי תִשָּׂא', en:'Ki Tisa', portion:'出エジプト 30:11–34:35', haftara:'列王記上 18:1–39'},
+  {he:'וַיַּקְהֵל', en:'Vayakhel', portion:'出エジプト 35:1–38:20', haftara:'列王記上 7:40–50'},
+  {he:'פְקוּדֵי', en:'Pekudei', portion:'出エジプト 38:21–40:38', haftara:'列王記上 7:51–8:21'},
+  {he:'וַיִּקְרָא', en:'Vayikra', portion:'レビ記 1:1–5:26', haftara:'イザヤ 43:21–44:23'},
+  {he:'צַו', en:'Tzav', portion:'レビ記 6:1–8:36', haftara:'エレミヤ 7:21–8:3'},
+  {he:'שְׁמִינִי', en:'Shemini', portion:'レビ記 9:1–11:47', haftara:'サムエル下 6:1–7:17'},
+  {he:'תַּזְרִיעַ', en:'Tazria', portion:'レビ記 12:1–13:59', haftara:'列王記下 4:42–5:19'},
+  {he:'מְצֹרָע', en:'Metzora', portion:'レビ記 14:1–15:33', haftara:'列王記下 7:3–20'},
+  {he:'אַחֲרֵי מוֹת', en:'Acharei Mot', portion:'レビ記 16:1–18:30', haftara:'エゼキエル 22:1–19'},
+  {he:'קְדֹשִׁים', en:'Kedoshim', portion:'レビ記 19:1–20:27', haftara:'アモス 9:7–15'},
+  {he:'אֱמֹר', en:'Emor', portion:'レビ記 21:1–24:23', haftara:'エゼキエル 44:15–31'},
+  {he:'בְּהַר', en:'Behar', portion:'レビ記 25:1–26:2', haftara:'エレミヤ 32:6–27'},
+  {he:'בְּחֻקֹּתַי', en:'Bechukotai', portion:'レビ記 26:3–27:34', haftara:'エレミヤ 16:19–17:14'},
+  {he:'בְּמִדְבַּר', en:'Bamidbar', portion:'民数記 1:1–4:20', haftara:'ホセア 2:1–22'},
+  {he:'נָשֹׂא', en:'Naso', portion:'民数記 4:21–7:89', haftara:'士師記 13:2–25'},
+  {he:'בְּהַעֲלֹתְךָ', en:"Beha'alotcha", portion:'民数記 8:1–12:16', haftara:'ゼカリヤ 2:14–4:7'},
+  {he:'שְׁלַח-לְךָ', en:'Shelach', portion:'民数記 13:1–15:41', haftara:'ヨシュア 2:1–24'},
+  {he:'קֹרַח', en:'Korach', portion:'民数記 16:1–18:32', haftara:'サムエル上 11:14–12:22'},
+  {he:'חֻקַּת', en:'Chukat', portion:'民数記 19:1–22:1', haftara:'士師記 11:1–33'},
+  {he:'בָּלָק', en:'Balak', portion:'民数記 22:2–25:9', haftara:'ミカ 5:6–6:8'},
+  {he:'פִּינְחָס', en:'Pinchas', portion:'民数記 25:10–30:1', haftara:'列王記上 18:46–19:21'},
+  {he:'מַטּוֹת', en:'Matot', portion:'民数記 30:2–32:42', haftara:'エレミヤ 1:1–2:3'},
+  {he:'מַסְעֵי', en:'Masei', portion:'民数記 33:1–36:13', haftara:'エレミヤ 2:4–28'},
+  {he:'דְּבָרִים', en:'Devarim', portion:'申命記 1:1–3:22', haftara:'イザヤ 1:1–27'},
+  {he:'וָאֶתְחַנַּן', en:"Va'etchanan", portion:'申命記 3:23–7:11', haftara:'イザヤ 40:1–26'},
+  {he:'עֵקֶב', en:'Eikev', portion:'申命記 7:12–11:25', haftara:'イザヤ 49:14–51:3'},
+  {he:'רְאֵה', en:"Re'eh", portion:'申命記 11:26–16:17', haftara:'イザヤ 54:11–55:5'},
+  {he:'שֹׁפְטִים', en:'Shoftim', portion:'申命記 16:18–21:9', haftara:'イザヤ 51:12–52:12'},
+  {he:'כִּי-תֵצֵא', en:'Ki Tetze', portion:'申命記 21:10–25:19', haftara:'イザヤ 54:1–10'},
+  {he:'כִּי-תָבוֹא', en:'Ki Tavo', portion:'申命記 26:1–29:8', haftara:'イザヤ 60:1–22'},
+  {he:'נִצָּבִים', en:'Nitzavim', portion:'申命記 29:9–30:20', haftara:'イザヤ 61:10–63:9'},
+  {he:'וַיֵּלֶךְ', en:'Vayelech', portion:'申命記 31:1–30', haftara:'イザヤ 55:6–56:8'},
+  {he:'הַאֲזִינוּ', en:"Ha'azinu", portion:'申命記 32:1–52', haftara:'サムエル下 22:1–51'},
+  {he:'וְזֹאת הַבְּרָכָה', en:'VeZot HaBracha', portion:'申命記 33:1–34:12', haftara:'ヨシュア 1:1–18'},
+];
+
+// Festivals 2025-2026
+const FESTIVALS = [
+  {he:'שבת',ja:'安息日（シャバット）',date:'毎週金曜日日没〜土曜日',desc:'週ごとの聖なる休息。創造の完成を記念する。',ref:'創世記 2:3',upcoming:true},
+  {he:'ראש השנה',ja:'ユダヤ新年（ロシュ・ハシャナー）',date:'2025年9月22–24日',desc:'ユダヤ暦の新年。ショファル（羊の角笛）を吹く。',ref:'レビ 23:24',upcoming:false},
+  {he:'יום כיפור',ja:'贖罪の日（ヨム・キプール）',date:'2025年10月1–2日',desc:'最も聖なる日。断食と悔い改め。大祭司の贖罪の型。',ref:'レビ 23:27',upcoming:false},
+  {he:'סוכות',ja:'仮庵の祭（スコット）',date:'2025年10月6–13日',desc:'荒野の旅40年を記念。仮の宿に住む。最終日はシムハット・トーラー。',ref:'レビ 23:34',upcoming:false},
+  {he:'חנוכה',ja:'ハヌカー（宮清めの祭）',date:'2025年12月14–22日',desc:'マカベーの勝利と神殿再奉献を記念。8日間ろうそくを灯す。',ref:'マカベー書',upcoming:false},
+  {he:'פורים',ja:'プリム',date:'2026年3月13–14日',desc:'エステル記。アマレク人ハマンの陰謀からユダヤ人を救った出来事を記念。',ref:'エステル記',upcoming:false},
+  {he:'פסח',ja:'過越の祭（ペサハ）',date:'2026年4月1–9日',desc:'エジプト脱出を記念。種なしパン（マッツァ）を食べる。イェシュアの最後の晩餐と十字架の型。',ref:'出エジプト 12',upcoming:true},
+  {he:'שבועות',ja:'七週の祭（シャブオット）',date:'2026年5月20–22日',desc:'シナイ山でのトーラー授与を記念。使徒行伝のペンテコステと対応。',ref:'レビ 23:15',upcoming:true},
+];
+
+function buildParasha() {
+  // Current week parasha (approximate - week 29 of 5785 cycle)
+  const currentIndex = 28; // approximate
+  const current = PARASHA_LIST[currentIndex];
+  const box = document.getElementById('parashaCurrentBox');
+  box.innerHTML = `
+    <div class="parasha-name-he">${current.he}</div>
+    <div class="parasha-name-en">${current.en}</div>
+    <div class="parasha-portion">📖 トーラー: ${current.portion}</div>
+    <div class="parasha-haftara">📜 ハフタラー: ${current.haftara}</div>
+  `;
+
+  // Festivals
+  const festList = document.getElementById('festivalList');
+  FESTIVALS.forEach(f => {
+    const card = document.createElement('div');
+    card.className = 'festival-card' + (f.upcoming ? ' upcoming' : '');
+    card.innerHTML = `
+      <div class="festival-name-he">${f.he}</div>
+      <div class="festival-name-ja">${f.ja}</div>
+      <div class="festival-date">📅 ${f.date}</div>
+      <div class="festival-desc">${f.desc}</div>
+      <div class="match-ref" style="margin-top:6px">📖 ${f.ref}</div>
+    `;
+    festList.appendChild(card);
+  });
+
+  // Parasha table
+  const tbody = document.getElementById('parashaTableBody');
+  PARASHA_LIST.forEach((p, i) => {
+    const tr = document.createElement('tr');
+    if (i === currentIndex) tr.style.background = 'rgba(201,168,76,0.05)';
+    tr.innerHTML = `
+      <td>${p.he}</td>
+      <td>${p.en}</td>
+      <td style="font-size:0.75rem">${p.portion}</td>
+      <td><span class="parasha-week">${i+1}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// =================== TABS ===================
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+// =================== INIT ===================
+buildKeyboard('gKeyboard');
+buildRomanGuide();
+buildParasha();
+document.getElementById('gInput').addEventListener('input', onGInput);
 </script>
 </body>
 </html>
-
